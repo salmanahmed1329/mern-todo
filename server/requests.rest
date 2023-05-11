@@ -10,25 +10,6 @@ Content-Type: application/json
   "task": ""
 }
 
-# [
-#   { "task": "A" },
-#   { "task": "B" },
-#   { "task": "C" },
-#   { "task": "D" },
-#   { "task": "E" },
-#   { "task": "F" },
-#   { "task": "G" },
-#   { "task": "H" },
-#   { "task": "I" },
-#   { "task": "J" },
-#   { "task": "K" },
-#   { "task": "L" },
-#   { "task": "M" },
-#   { "task": "N" },
-#   { "task": "O" },
-#   { "task": "P" }
-# ]
-
 ###
 GET http://localhost:5001/todo/
 Content-Type: application/json
