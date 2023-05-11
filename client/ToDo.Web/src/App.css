@@ -1,38 +1,98 @@
-.App {
-  text-align: center;
+.App
+{
+  padding: 16px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1
+{
+  font-size: calc(20px + 2vmin);
+  font-weight: 700;
+  margin-bottom: 32px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h4
+{
+  color: var(--light-alt);
+  font-size: 40px;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin-bottom: 16px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.todo
+{
+  position: relative;
+  background-color: var(--dark);
+  padding: 16px;
+  border-radius: 16px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  transition: 0.5s;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.todo:hover
+{
+  opacity: 0.8;
+}
+
+.todo .checkbox
+{
+  width: 20px;
+  height: 20px;
+  margin-right: 16px;
+  border-radius: 999px;
+  background-color: var(--dark-alt);
+  transition: 0.4s;
+}
+
+.todo.is-finished .checkbox
+{
+  background-color: var(--primary);
+  background-image: linear-gradient(to bottom, var(--primary), var(--secondary));
+}
+
+.todo .task
+{
+  font-size: 20px;
+}
+
+.todo.is-finished .task
+{
+  text-decoration: line-through;
+}
+
+.todo .delete-todo
+{
+  position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 16px;
+	color: var(--light);
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	background-color: #AF1E2D;
+	display: flex;
+	justify-content: center;
+	font-weight: 500;
+}
+
+.newTodoPopup
+{
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--light);
+  background-image: linear-gradient(to bottom right, var(--primary), var(--secondary));
+  cursor: pointer;
 }
