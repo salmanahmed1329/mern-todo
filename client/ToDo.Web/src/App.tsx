@@ -19,8 +19,11 @@ const App = () =>
   //#region - variables
 
   const [shouldRender, setShouldRender] = useState(false);
+  const [showModal_NewTodo, setShowModal_NewTodo] = useState(false);
 
   const [todosList, setTodosList] = useState<Todo[]>([]);
+
+  const [task, setTask] = useState('');
 
   //#endregion
 
@@ -124,6 +127,48 @@ const App = () =>
     );
   }
 
+  async function OnAddTodo()
+  {
+    if (task)
+      await AddTodo(task);
+
+    else
+      alert('Task is required...');
+  }
+
+  async function AddTodo(task: string)
+  {
+    const options: RequestInit = 
+    {
+      method: 'POST',
+      headers: 
+      {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({ task }),
+    };
+
+    await fetch(`http://localhost:5001/todo`, options)
+    .then(response => 
+      response.json()
+    )
+    .then((data: Todo) => 
+    {
+      setTodosList(todos => todos.concat(data));
+      
+      setTask('');
+
+      setShowModal_NewTodo(false);
+    })
+    .catch(exception => 
+      console.log(`exception = ${JSON.stringify(exception)}`)
+    )
+    .finally(() => 
+      setShouldRender(true)
+    );
+  }
+
   //#endregion
 
   //////////////////////////////////////////////////
@@ -148,6 +193,21 @@ const App = () =>
               />
             )
           }
+        </div>
+      }
+
+      <div className="popup-show" onClick={() => setShowModal_NewTodo(true)}>
+        {"+"}
+      </div>
+
+      {
+        showModal_NewTodo
+        &&
+        <div className="popup-container">
+          <div className="popup-hide" onClick={() => setShowModal_NewTodo(false)}>{"X"}</div>
+          <h3 className='popup-title'>{"Add Task"}</h3>
+          <input type='text' className="popup-task" value={task} onChange={({ target }) => setTask(target?.value)}></input>
+          <div className="popup-addTask" onClick={() => OnAddTodo()}>{"Create Task"}</div>
         </div>
       }
     </div>
