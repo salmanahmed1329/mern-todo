@@ -13,7 +13,7 @@ h1
 h4
 {
   color: var(--light-alt);
-  font-size: 40px;
+  font-size: calc(12px + 1.2vmin);
   font-weight: 400;
   text-transform: uppercase;
   margin-bottom: 16px;
@@ -55,7 +55,7 @@ h4
 
 .todo .task
 {
-  font-size: 20px;
+  font-size: calc(10px + 1vmin);
 }
 
 .todo.is-finished .task
@@ -79,7 +79,7 @@ h4
 	font-weight: 500;
 }
 
-.newTodoPopup
+.popup-show
 {
   position: fixed;
   bottom: 32px;
@@ -90,9 +90,80 @@ h4
   width: 64px;
   height: 64px;
   border-radius: 999px;
-  font-size: 28px;
+  font-size: calc(14px + 1.4vmin);
   font-weight: 700;
   color: var(--light);
   background-image: linear-gradient(to bottom right, var(--primary), var(--secondary));
   cursor: pointer;
+}
+
+.popup-container
+{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 400px;
+  background-color: var(--light);
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0px 3px 24px var(--dark);
+}
+
+.popup-hide
+{
+  position: absolute;
+	top: 16px;
+	right: 16px;
+	color: var(--light);
+  background-color: #AF1E2D;
+	width: 24px;
+	height: 24px;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.popup-container h3
+{
+  color: var(--dark);
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.popup-task
+{
+  appearance: none;
+  border: none;
+  outline: none;
+  background-color: #FFFFFF;
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  font-size: 16px;
+}
+
+.popup-addTask
+{
+  padding: 16px 32px;
+	border-radius: 999px;
+	background-image: linear-gradient(to right, var(--primary), var(--secondary));
+	display: inline-block;
+	font-weight: 700;
+	text-transform: uppercase;
+  align-self: flex-end;
+	font-size: 12px;
+	margin-top: 16px;
+	text-align: center;
+	cursor: pointer;
+  margin-left: 30%;
+  margin-top: 24px;
 }
