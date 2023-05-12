@@ -22,87 +22,143 @@ await DB_Connect();
 
 server.get('/todos', async (_, response) => 
 {
-  const todosList = await Todo.find().lean().exec();
+  try
+  {
+    const todosList = await Todo.find().lean().exec();
 
-  response.json(todosList?.length ? todosList : []);
+    response.json(todosList?.length ? todosList : []);
+  }
+
+  catch (exception)
+  {
+    response.json(exception);
+  }
 });
 
 server.post('/todo', async (request, response) => 
 {
-  const todo = await (new Todo(request?.body)).save();
+  try
+  {
+    const todo = await (new Todo(request?.body)).save();
 
-  response.json(todo?._id ? todo : { error: `todo item not created...` });
+    if (todo?._id)
+    {
+      response.json(todo);
+    }
+
+    else 
+    {
+      response.status(404).json({ error: `todo item not created...` });
+    }
+  }
+
+  catch (exception)
+  {
+    response.json(exception);
+  }
 });
 
 server.get('/todo/:id', async (request, response) => 
 {
-  const todo = await Todo.findById(request.params?.id);
-
-  if (todo?._id)
+  try
   {
-    response.json(todo);
+    const todo = await Todo.findById(request.params?.id);
+
+    if (todo?._id)
+    {
+      response.json(todo);
+    }
+
+    else 
+    {
+      response.status(404).json({ error: `todo item not found...` });
+    }
   }
 
-  else 
+  catch (exception)
   {
-    response.status(404).json({ error: `todo item not found...` });
+    response.json(exception);
   }
 });
 
 server.put('/todo/:id', async (request, response) => 
 {
-  const todo = await Todo.findById(request.params?.id);
-
-  if (todo?._id)
+  try
   {
-    todo.task = request.body?.task;
+    const todo = await Todo.findById(request.params?.id);
 
-    await todo?.save();
+    if (todo?._id)
+    {
+      todo.task = request.body?.task;
 
-    response.json(todo);
+      await todo?.save();
+
+      response.json(todo);
+    }
+
+    else 
+    {
+      response.status(404).json({ error: `todo item not found...` });
+    }
   }
 
-  else 
+  catch (exception)
   {
-    response.status(404).json({ error: `todo item not found...` });
+    response.json(exception);
   }
 });
 
 server.delete('/todo/:id', async (request, response) => 
 {
-  const todo = await Todo.findById(request.params?.id);
-
-  if (todo?._id)
+  try
   {
-    todo.task = request.body?.task;
+    const todo = await Todo.findById(request.params?.id);
 
-    await todo?.deleteOne();
+    if (todo?._id)
+    {
+      todo.task = request.body?.task;
 
-    response.json(todo);
+      await todo?.deleteOne();
+
+      response.json(todo);
+    }
+
+    else 
+    {
+      response.status(404).json({ error: `todo item not found...` });
+    }
   }
 
-  else 
+  catch (exception)
   {
-    response.status(404).json({ error: `todo item not found...` });
+    response.json(exception);
   }
 });
 
 server.get('/todo/toggle/:id', async (request, response) => 
 {
-  const todo = await Todo.findById(request.params?.id);
-
-  if (todo?._id)
+  try
   {
-    todo.isFinished = !todo.isFinished;
+    const todo = await Todo.findById(request.params?.id);
 
-    await todo?.save();
+    if (todo?._id)
+    {
+      todo.isFinished = !todo.isFinished;
 
-    response.json(todo);
+      await todo?.save();
+
+      response.json(todo);
+    }
+
+    else 
+    {
+      response.status(404).json({ error: `todo item not found...` });
+    }
   }
 
-  else 
+  catch (exception)
   {
-    response.status(404).json({ error: `todo item not found...` });
+    response.json(exception);
   }
 });
 
