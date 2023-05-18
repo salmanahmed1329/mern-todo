@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, View, TextInput, FlexStyle, TextStyle } from 'react-native';
+import { StyleSheet, View, TextInput, FlexStyle, TextStyle, ViewStyle } from 'react-native';
 
 import { useIsKeyboardFocused } from '../hooks/index';
 
@@ -9,8 +9,8 @@ import { STYLE_STRING } from '../styles/index';
 
 type TextInputViewType = 
 {
-  containerStyle?: FlexStyle;
-  textboxStyle?: FlexStyle;
+  containerStyle?: ViewStyle;
+  textboxStyle?: ViewStyle;
   textStyle?: TextStyle;
   isEditable?: boolean;
   placeholder: string;
