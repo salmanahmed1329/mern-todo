@@ -1,12 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, View, TextInput } from 'react-native';
+import { StyleSheet, View, TextInput, FlexStyle, TextStyle } from 'react-native';
 
 import { useIsKeyboardFocused } from '../hooks/index';
 
 import { STYLE_STRING } from '../styles/index';
-import { INTERFACE } from '../utils/index';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+type TextInputViewType = 
+{
+  containerStyle?: FlexStyle;
+  textboxStyle?: FlexStyle;
+  textStyle?: TextStyle;
+  isEditable?: boolean;
+  placeholder: string;
+  text: string;
+  OnTextChange: (text: string) => void;
+  OnTextSubmit?: () => void;
+};
 
 const TextInputView = 
 (
@@ -21,13 +32,13 @@ const TextInputView =
     OnTextSubmit = () => {}
   }
   : 
-  INTERFACE.ITextInputView
+  TextInputViewType
 ) =>
 {
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   //#region - variables
 
-  const inputRef = useRef<any>();
+  const inputRef = useRef<TextInput>(null);
 
   const isKeyboardFocused = useIsKeyboardFocused();
   
