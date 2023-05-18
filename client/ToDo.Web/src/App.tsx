@@ -25,6 +25,8 @@ const App = () =>
 
   const [task, setTask] = useState('');
 
+  const BASE_URL = `http://localhost:5001`;
+
   //#endregion
 
   //////////////////////////////////////////////////
@@ -48,7 +50,7 @@ const App = () =>
       },
     };
 
-    await fetch('http://localhost:5001/todos', options)
+    await fetch(`${BASE_URL}/todos`, options)
     .then(response => 
       response.json()
     )
@@ -75,7 +77,7 @@ const App = () =>
       },
     };
 
-    await fetch(`http://localhost:5001/todo/toggle/${id}`, options)
+    await fetch(`${BASE_URL}/todo/toggle/${id}`, options)
     .then(response => 
       response.json()
     )
@@ -107,7 +109,7 @@ const App = () =>
       },
     };
 
-    await fetch(`http://localhost:5001/todo/${id}`, options)
+    await fetch(`${BASE_URL}/todo/${id}`, options)
     .then(response => 
       response.json()
     )
@@ -149,7 +151,7 @@ const App = () =>
       body: JSON.stringify({ task }),
     };
 
-    await fetch(`http://localhost:5001/todo`, options)
+    await fetch(`${BASE_URL}/todo`, options)
     .then(response => 
       response.json()
     )
@@ -174,17 +176,21 @@ const App = () =>
   //////////////////////////////////////////////////
   //#region - render
 
-  return (
-    <div className="App">
-      <h1>{"Welcome, SalmanAhmed1329"}</h1>
-      <h4>{"Your Tasks"}</h4>
+  return(
+    <div className='App'>
+      <h1>
+        {"Welcome, SalmanAhmed1329"}
+      </h1>
+      <h4>
+        {"Your Tasks"}
+      </h4>
 
       {
         shouldRender
         &&
-        <div className="todos">
+        <div className='todos'>
           {
-            todosList?.map((todoItem: any) => 
+            todosList?.map(todoItem => 
               <TodoView
                 key={todoItem._id}
                 todo={todoItem}
@@ -196,19 +202,21 @@ const App = () =>
         </div>
       }
 
-      <div className="popup-show" onClick={() => setShowModal_NewTodo(true)}>
+      <div className='popup-show' 
+        onClick={() => setShowModal_NewTodo(true)}
+      >
         {"+"}
       </div>
 
       {
         showModal_NewTodo
         &&
-        <div className="popup-container">
-          <div className="popup-hide" onClick={() => setShowModal_NewTodo(false)}>{"X"}</div>
-          <h3 className='popup-title'>{"Add Task"}</h3>
-          <input type='text' className="popup-task" value={task} onChange={({ target }) => setTask(target?.value)}></input>
-          <div className="popup-addTask" onClick={() => OnAddTodo()}>{"Create Task"}</div>
-        </div>
+        <AddTodoView
+          task={task}
+          OnTaskChange={text => setTask(text)}
+          OnAddTodo={() => OnAddTodo()}
+          OnHideModal={() => setShowModal_NewTodo(false)}
+        />
       }
     </div>
   );
@@ -239,13 +247,73 @@ const TodoView = (props: TodoViewType) =>
   //////////////////////////////////////////////////
   //#region - render
 
-  return (
-    <div key={todo?._id} className={"todo" + (todo.isFinished ? " is-finished" : "")} onClick={() => props.OnToggle()}>
-      <div className="checkbox"></div>
-      <div className="task">
+  return(
+    <div 
+      key={todo?._id} 
+      className={'todo' + (todo.isFinished ? ' is-finished' : '')} 
+      onClick={() => props.OnToggle()}
+    >
+      <div className='checkbox'/>
+      <div className='task'>
         {todo?.task}
       </div>
-      <div className="delete-todo" onClick={() => props.OnDelete()}>{"X"}</div>
+      <div className='delete-todo' 
+        onClick={() => props.OnDelete()}
+      >
+        {"X"}
+      </div>
+    </div>
+  );
+
+  //#endregion
+
+  //////////////////////////////////////////////////
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+type AddTodoViewType = 
+{
+  task: string;
+  OnTaskChange: (text: string) => void;
+  OnAddTodo: () => void;
+  OnHideModal: () => void;
+};
+
+const AddTodoView = (props: AddTodoViewType) => 
+{
+  //////////////////////////////////////////////////
+  //#region - variables
+
+  //#endregion
+
+  //////////////////////////////////////////////////
+  //#region - functions
+
+  //#endregion
+
+  //////////////////////////////////////////////////
+  //#region - render
+
+  return(
+    <div className='popup-container'>
+      <div className='popup-hide' 
+        onClick={() => props.OnHideModal()}
+      >
+        {"X"}
+      </div>
+      <h3>
+        {"Add Task"}
+      </h3>
+      <input 
+        type='text' 
+        className='popup-task' 
+        value={props.task} 
+        onChange={({ target }) => props.OnTaskChange(target?.value)}
+      />
+      <div className='popup-addTask' onClick={() => props.OnAddTodo()}>
+        {"Create Task"}
+      </div>
     </div>
   );
 
