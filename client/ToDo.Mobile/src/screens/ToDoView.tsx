@@ -26,8 +26,8 @@ const ToDoView = () =>
 
   const [todosList, setTodosList] = useState<Todo[]>([]);
 
-  // const BASE_URL = 'http://10.0.2.2:5001'; // localhost
-  const BASE_URL = 'https://f917-103-163-49-215.ngrok-free.app'; // ngrok
+  const BASE_URL = 'http://10.0.2.2:5001'; // localhost
+  // const BASE_URL = ''; // ngrok
 
   //#endregion
 
