@@ -2,10 +2,10 @@
   "name": "mern_todo",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "set NODE_ENV=DEV&& npx nodemon"
+    "start:dev": "set NODE_ENV=DEV&& npx nodemon",
+    "start": "node ./src/server.ts"
   },
   "keywords": [],
   "author": "SalmanAhmed1329",
